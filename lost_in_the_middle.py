@@ -1,31 +1,51 @@
-from cat.mad_hatter.decorators import tool, hook, plugin
-from pydantic import BaseModel
-from datetime import datetime, date
+from cat.mad_hatter.decorators import hook
 
-class MySettings(BaseModel):
-    required_int: int
-    optional_int: int = 69
-    required_str: str
-    optional_str: str = "meow"
-    required_date: date
-    optional_date: date = 1679616000
+def litm(documents):
+    """
+    Function based on Haystack's LITM ranker:
+    https://github.com/deepset-ai/haystack/blob/main/haystack/nodes/ranker/lost_in_the_middle.py
 
-@plugin
-def settings_schema():   
-    return MySettings.schema()
+    Lost In The Middle is based on the paper https://arxiv.org/abs/2307.03172
+    Check it for mor details.
 
-@tool
-def get_the_day(tool_input, cat):
-    """Get the day of the week. Input is always None."""
 
-    dt = datetime.now()
+    Parameters
+    ----------
+    documents: List of documents (the declarative working memories)
 
-    return dt.strftime('%A')
+    Returns
+    ----------
+    litm_docs: The same list but reordered
+    """
+    if len(documents) == 1:
+        return documents
+    
+    document_index = list(range(len(documents)))
+    lost_in_the_middle_indices = [0]
 
-@hook
-def before_cat_sends_message(message, cat):
+    for doc_idx in document_index[1:]:
+        insertion_index = len(lost_in_the_middle_indices) // 2 + len(lost_in_the_middle_indices) % 2
+        lost_in_the_middle_indices.insert(insertion_index, doc_idx)
+        litm_docs = [documents[idx] for idx in lost_in_the_middle_indices]
+    return litm_docs
 
-    prompt = f'Rephrase the following sentence in a grumpy way: {message["content"]}'
-    message["content"] = cat.llm(prompt)
 
-    return message
+@hook(priority=1)
+def after_cat_recalls_memories(cat) -> None:
+    """Hook after semantic search in memories.
+
+    The hook is executed just after the Cat searches for the meaningful context in memories
+    and stores it in the *Working Memory*.
+
+    Parameters
+    ----------
+    cat : CheshireCat
+        Cheshire Cat instance.
+
+    """
+    if cat.working_memory['declarative_memories']:
+        litm_docs = litm(cat.working_memory['declarative_memories'])
+        cat.working_memory['declarative_memories'] = litm_docs
+    else:
+        print("#HicSuntGattones")
+    pass # do nothing

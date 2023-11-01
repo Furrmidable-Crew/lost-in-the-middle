@@ -2,9 +2,8 @@
     "name": "Lost In The Middle",
     "version": "0.0.1",
     "description": "Description of lost_in_the_middle.",
-    "author_name": "Me",
-    "author_url": "https://mywebsite.me",
-    "plugin_url": "https://github.com/my_name/lost_in_the_middle",
-    "tags": "cat, template, example",
-    "thumb": "https://raw.githubusercontent.com/my_repo_path/lost_in_the_middle.png"
+    "author_name": "nickprock",
+    "plugin_url": "https://github.com/nickprock/lost_in_the_middle",
+    "tags": "vector-db, embeddings, lost_in_the_middle",
+    "thumb": "https://raw.githubusercontent.com/nickprock/lost-in-the-middle/main/stregatto_space.png"
 }
