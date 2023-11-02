@@ -1,26 +1,13 @@
 # Lost In The Middle
-
-[![awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=awesome+plugin&color=383938&style=for-the-badge&logo=cheshire_cat_ai)](https://)  
-[![Awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=Awesome+plugin&color=000000&style=for-the-badge&logo=cheshire_cat_ai)](https://)  
+ 
 [![awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=awesome+plugin&color=F4F4F5&style=for-the-badge&logo=cheshire_cat_black)](https://)
 
-Write here all the useful information about your plugin.
+Plugin based on [*Lost in the Middle: How Language Models Use Long Contexts*](https://arxiv.org/abs/2307.03172).
 
-This repository is the template to automate the release of official Cheshire Cat AI plugins. 
+In the paper the authors state that LLMs perform better if the relevant information is at the beginning or end of the context, when there is a greater number of documents than N (N>10 or so). According to this study, it is necessary to reorder the list of documents returned by the retriever for better responses.
 
-## Usage
-
-1. Create a new repository clicking on the `Use this template` button.
-2. Clone your new repo directly in the Cat's `plugins` folder.
-3. Run the `setup.py` script:
-```bash
-python setup.py
-```
-The script will prompt you to write the name of your plugin and make an initial setup setting the name in the files.
-
-4. Start developing!
+The plugin works only on [Declarative Memory](https://cheshire-cat-ai.github.io/docs/conceptual/memory/declarative_memory/) that contains an extract of documents uploaded to the Cat.
 
 > **Important**
-> A new release of your plugin is triggered every time you set a new `version` in the `plugin.json` file.
-> Please, remember to set it correctly every time to want to release an update.
-
+> Lost In The Middle is very useful if you get at least more than 10 documents returned from the declarative memory.
+> Before using it download and enable the [C.A.T. plugin](https://github.com/Furrmidable-Crew/cat_advanced_tools) from the Plugins store, [follow the instructions](https://github.com/Furrmidable-Crew/cat_advanced_tools#usage) to increase the k parameter of the declarative memory.
