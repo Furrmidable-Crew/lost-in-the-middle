@@ -3,7 +3,7 @@
     "version": "0.0.3",
     "description": "The pluging reorder the list of documents returned by the retriever based on the 'Lost in the Middle' paper.",
     "author_name": "nickprock",
-    "plugin_url": "https://github.com/nickprock/lost_in_the_middle",
+    "plugin_url": "https://github.com/Furrmidable-Crew/lost-in-the-middle",
     "tags": "vector-db, embeddings, reranker",
     "thumb": "https://raw.githubusercontent.com/nickprock/lost-in-the-middle/main/litm.png"
 }
